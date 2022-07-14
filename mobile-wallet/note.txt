@@ -1,0 +1,104 @@
+{
+  "card_issuer": "MASTERCARD",
+  "auth_type": "PIN",
+  "card_number": "5531886652142950",
+  "cvv": "564",
+  "expiry_date": "09/32",
+  "pin": "3310",
+  "otp": "12345"
+}
+
+
+<input type="text" class="form-control" placeholder="">
+                            <input type="text" class="form-control" placeholder="">
+                            <input type="text" class="form-control" placeholder="">
+                            <input type="text" class="form-control" placeholder="">
+                            <input type="text" class="form-control" placeholder="">
+                            <input type="text" class="form-control" placeholder="">
+
+
+https://developer.flutterwave.com/reference/endpoints/charge/
+
+https://developer.flutterwave.com/reference/testing/
+
+
+https://github.com/Flutterwave/Python
+
+
+
+def fund_account(request):
+    form = FundAccountForm(request.POST)
+    if form.is_valid():
+        card_number = form.cleaned_data['card_number']
+        full_name = form.cleaned_data['full_name']
+        expiry_month = form.cleaned_data['expiry_month']
+        expiry_year = form.cleaned_data['expiry_year']
+        cvv = form.cleaned_data['cvv']
+        amount = form.cleaned_data['amount']
+        email = form.cleaned_data['email']
+        pin = form.cleaned_data['pin']
+        
+        # everything flutterwave
+        auth_token = 'FLWSECK_TEST-8631e24e08584b518d6e850dda0f556e-X'
+        hed = {'Authorization':'Bearer ' + auth_token}
+        data = {
+            'cardno': card_number,
+            'fullname': full_name,
+            'expirymonth': expiry_month,
+            'expiryyear': expiry_year,
+            'cvv': cvv,
+            'amount':amount,
+            'email':email,
+            'pin':pin,
+            
+
+         }
+         
+        
+        
+        rave = Rave('FLWPUBK_TEST-5359bc14f0f3ff04007583f80f74818b-X','FLWSECK_TEST-14a1c5d9fe2cfaa4a386b915473ea0ab-X', usingEnv=False )
+        
+        url = 'https://api.flutterwave.com/v3/charges?type=card'
+        response = requests.post(url, json=data, headers=hed)
+        
+        try:
+            response = rave.Card.charge(data)
+            response = json.dumps(response, indent=3, sort_keys=True)
+            print_json(response)
+            
+            response = json.loads(response)
+            
+            if response['suggestedAuth']:
+                arg = Misc.getTypeOfArgsRequired(response['suggestedAuth'])
+                
+                if arg == 'pin':
+                    redirect('transfer:pin_authentication')
+                    
+                    Misc.updatePayload(response['suggestedAuth'], data, pin= pin )
+                
+                response = rave.Card.charge(data)
+                
+            if response["validationRequired"]:
+                rave.Card.validate(response["flwRef"], '12345')
+
+            
+            response = rave.Card.verify(response["txRef"])
+            if response['transactionComplete']:
+                wallet = Wallet.objects.get(wallet=request.user)
+                wallet.balance += response['chargedamount']
+                wallet.save()
+                print('my response')
+            
+                    
+        
+        except RaveExceptions.CardChargeError as e:
+            print(e.rr['errMsg'])
+            print(e.rr['flwRef'])
+        
+       
+            
+        except RaveExceptions.TransactionChargeError as e:
+            print(e.rr['errMsg'])
+            print(e.rr['txRef'])
+        
+    return render(request, 'card.html', {'form':form})

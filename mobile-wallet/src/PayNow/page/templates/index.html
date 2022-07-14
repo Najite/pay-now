@@ -1,0 +1,108 @@
+{% include 'base.html' %}
+{% load static %}
+{% block banner %}
+<section class="banner">
+    <div class="banner-text">
+        <h2>Modern Fast Payment for Africa</h2>
+        <p>Pay Now helps you get paid by anyone in Africa </p>
+
+        <div class="banner-action">
+            <a href="" class="registration">Create a free account</a>
+            <a href="" id="contact">or contact sales</a>
+        </div>   
+        
+    </div>       
+    
+</section>        
+{% endblock banner %}
+
+{% block payment-experience %}
+<div class="payment-experience">
+    <div class="container">
+        <div class="payment-gif-card">
+        <h1>Simple, easy payment</h1>
+        <p>Building a business is hard, getting paid, should not be</p>
+         </div>
+
+
+        <!-- image card and content -->
+         <div class="card-wrapper">
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col">
+                  <div class="card">
+                    <img src="{% static 'gif/Collect-Payments-for-Multiple-Channels-1.1.gif' %}" class="card-img-top" alt="...">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body">
+                      <h1 class="card-title">Delight Customers with a seamless transaction</h1>
+                      <p class="card-text">
+                        Give your customers the gift of modern, frictionless, painless payments.
+                      </p>
+                      
+                      <div class="service">
+                        <ul>
+                            <li>Card</li>
+                            <li>Bank Account</li>
+                            <li>Bank Transfer</li>
+                            <li>USSD</li>
+                            
+                        </ul>
+
+                        <div class="service-right">
+                            <ul>
+                                <li>Apple Pay</li>
+                                <li>Visa QR</li>
+                                <li>Mobile Money</li>
+                                <li>POS</li>
+                            </ul>
+                        </div>
+                      </div>
+
+                      <div class="service-renderd">
+                        <h1>Enjoy phenomenal transaction success rate</h1>
+                        <p>We automatically route payments through the most optimal channels, ensuring the highest transaction succes rates in the market</p>
+
+                        <a href="">Find out how we achieve high success rate</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col">
+                    <div class="card">
+                        <video src="{% static 'gif/Advanced-Fraud-Protection.mp4' %}" muted class="card-img-top"></video>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card">                          
+                      <div class="card-body">
+                        <h1 class="card-title">Protect Yourself and customers with advanced fraud detection</h1>
+                        <p class="card-text">Pay Now combination of automated and manual fraud system protect you from fraudulent transactions and associated chargeback claims</p>
+                      </div>
+                    </div>
+                  </div>
+
+              </div>
+
+         </div>
+    </div>
+</div>
+
+    
+{% endblock payment-experience %}
+    
+
+
+<section class="accept-payment">
+<div class="container-fluid">
+    <h2>Try Pay Now</h2>
+
+    <div class="account-try">
+        <h1>Start accepting payments in just 30 minutes</h1>
+
+        <a href="" class="registration">Create a free account</a>
+    </div>
+</div>
+</section>

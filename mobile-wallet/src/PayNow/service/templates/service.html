@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container d-flex justify-content-center fixed-top " style="margin-top: 4rem; ">
+    <div class="card p-3" style="width:50rem;" >
+      <p class="text-dark"></p>
+      <div class="card-bottom pt-3 px-3 mb-2">   
+     <div class="d-flex flex-column"><span><h3> Balance: &#8358; {{ wallet.balance }}</span>
+      </div>
+      
+      </div>
+        <h3>Account Number: <br> {{ wallet.account_number }}</h3>
+        <h3>Bank: <br> {{ wallet.bank }}</h3>
+      <a href="{% url 'transfer:card_fund' %}">Fund wallet</a>
+    </div>
+              
+  </div>
+
+  
+{% include 'sidenav.html' %}
+
+<main style=" margin-top: 27em; margin-left:3rem;">
+<div class="container">
+<div class="row" style="margin-left: 3rem;" >
+    <div class="col-4">                     
+      <div class="card mb-5" style="width: 15em; ">
+          <h5 class="card-title">{{ services.name }}</h5>
+          <img src="{{ services.image.url }}" class="card-img-top" alt="data image" style="width:15em; height: 10em;">
+        <div class="card-body">
+          
+        </div>
+      </div>
+      
+    </div>
+    
+  </div>
+
+</div>
+</main>
+{% endblock content %}
+    

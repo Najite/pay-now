@@ -1,28 +1,88 @@
 {% extends 'base.html' %}
-{% load static %}
-
+{% load static %}'
+{% load active_link_tags %}
 
 {% block content %}
-<div class="container d-flex justify-content-center">
-    <div class="card p-3">
-      <div class="d-flex flex-row justify-content-between text-align-center">
-        <img src="https://imgur.com/vvK2ARv.png">
-        <i class="fas fa-ellipsis-v"></i>
-      </div>
-      <p class="text-dark"></p>
-      <div class="card-bottom pt-3 px-3 mb-2">
-         <div class="d-flex flex-row justify-content-between text-align-center">
-            
-          <div class="d-flex flex-column"><span>Balance amount {{ wallet.balance }}</span><p>&euro; <span class="text-white">88,989</span></p>
+<div class="container d-flex justify-content-center fixed-top " style="margin-top: 4rem; ">
+  
+  {% if wallet %}
+  <div class="card p-3" style="width:50rem;" >
+    <p class="text-dark"></p>
+    <div class="card-bottom pt-3 px-3 mb-2">   
+   <div class="d-flex flex-column"><span><h3> Balance: &#8358; {{ wallet.balance }}</span>
+    </div>
+    
+    </div>
+      <h3>Account Number: <br> {{ wallet.account_number }}</h3>
+      <h3>Bank: <br> {{ wallet.bank }}</h3>
+    <a href="{% url 'transfer:card_fund' %}">Fund wallet</a>
+  
+  </div>
+
+  {% else %}
+  <div class="card p-3" style="width:50rem;" >
+    <p class="text-dark"></p>
+    <div class="card-bottom pt-3 px-3 mb-2">   
+   <div class="d-flex flex-column"><span><h3> Balance: &#8358; </span>
+    </div>
+    
+    </div>
+      <h3>Account Number: <br> </h3>
+      <h3>Bank: <br> </h3>
+    
+  </div>
+  
+    
+    
+  {% endif %}
+              
+  </div>
+  {% include 'sidenav.html' %}
+
+  
+ 
+
+
+
+  <!--Main layout-->
+  <main style="margin-top: 27em; margin-left: 3rem; width: 64rem;">
+    <div class="container">
+      <div class="row">
+        {% for service in services %}
+        <div class="col-4">                     
+          <div class="card mb-5" style="width: 15em; ">
+              <h5 class="card-title">{{ service.name }}</h5>
+              <img src="{{ service.image.url }}" class="card-img-top" alt="data image" style="width:15em; height: 10em;">
+            <div class="card-body">
+              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              <a href="{{ service.get_absolute_url }}" class="btn btn-primary">Go somewhere</a>
+            </div>
           </div>
-         
           
         </div>
-        <h1>Account Number: <br> {{ wallet.account_number }}</h1>
-        <h1>Bank: <br> {{ wallet.bank }}</h1>
-        <a href="{% url 'transfer:card_fund' %}">Fund wallet</a>
+        {% endfor %}
       </div>
+    
+    
+      <!-- Section: Main chart -->
+      <section class="mb-4" style="margin-top: 20em;">
+        <div class="card">
+          <div class="card-header py-3">
+            <h5 class="mb-0 text-center"><strong>Transaction History</strong></h5>
+          </div>
+          <div class="card-body">
+            <canvas class="my-4 w-100" id="myChart" height="380"></canvas>
+          </div>
+        </div>
+      </section>
+      <!-- Section: Main chart -->
     </div>
-  </div>
+  </main>
+  <!--Main layout-->
+  <!-- MDB -->
+  <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+  <!-- Custom scripts -->
+  <script type="text/javascript" src="{% static 'js/admin.js' %}"></script>
+
 {% endblock content %}
     

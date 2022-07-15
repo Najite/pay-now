@@ -1,20 +1,29 @@
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, render, redirect, HttpResponse
 from .forms import VirtualAccountForm
 from.models import Wallet
 from rich import print_json
 import requests
 import json
-
-
-
+from django.contrib.auth.decorators import login_required
+from service.models import Service, Category
 
 # Create your views here.
 
-def dashboard(request):
-    wallet = Wallet.objects.get(wallet=request.user)
-    return render(request, 'dashboard.html', {'wallet':wallet})
+def dashboard(request, slug=None):    
+    category = None
+    services = Service.objects.all()
+    categories = Category.objects.all()
+    wallet = Wallet.objects.filter(wallet=request.user).first()    
+    if slug:
+        category = get_object_or_404(Category, slug=slug)
+        services = services.filter(category=category)
+    
+    return render(request, 'dashboard.html', {'wallet':wallet,
+                                              'categories':categories,
+                                              'services':services})
 
 
+@login_required(login_url='account:login')
 def create_virtual_account(request):
     form = VirtualAccountForm(request.POST)
     if form.is_valid():  

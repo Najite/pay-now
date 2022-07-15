@@ -44,9 +44,11 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'wallet.apps.WalletConfig',
     'transfer.apps.TransferConfig',
+    'service.apps.ServiceConfig',
     
     #third party app
     'livereload',
+    'active_link',
 ]
 
 MIDDLEWARE = [
@@ -72,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'wallet.context_processors.wallet'
             ],
         },
     },

@@ -13,17 +13,14 @@
             <div class="mt-3 mb-4">
               
               
+              {% if user.profile.profile_picture%}
               <img src="{{ user.profile.profile_picture.url }}"
-              class="rounded-circle img-fluid" style="width: 100px;" />
+              class="rounded-circle img-fluid" style="width: 100px;" /> 
+              {% else %}
+              <img src=""
+              class="rounded-circle img-fluid" style="width: 100px;" /> 
 
-              
-              
-                
-           
-              
-
-              
-              
+              {% endif %}
               <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
 

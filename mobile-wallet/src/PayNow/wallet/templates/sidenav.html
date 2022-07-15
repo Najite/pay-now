@@ -1,0 +1,20 @@
+   <!-- Sidebar -->
+   {% load active_link_tags %}
+   {% url 'wallet:dashboard' as dashboard_url %}
+   <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+    <div class="position-sticky">
+      <div class="list-group list-group-flush mx-3 mt-4">
+        {% if not categories %}{% endif %}
+        <a href="{% url 'wallet:dashboard' %}" class="list-group-item list-group-item-action py-2 ripple {% if request.path == dashboard_url %} active" {% endif %} aria-current="true" >
+         <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Main dashboard</span>
+        </a>
+      
+        {% for c in categories %}
+        <a href="{{ c.get_absolute_url }}" class="list-group-item list-group-item-action py-2 ripple {% if request.path == c.get_absolute_url %} active" {% endif %}>
+          <i class="fas fa-chart-area fa-fw me-3"></i><span>{{ c.name }} </span>
+        </a>          
+        {% endfor %}
+      </div>
+    </div>
+  </nav>
+  <!-- Sidebar --> 

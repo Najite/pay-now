@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('account.urls')),
     path('dashboard/', include('wallet.urls')),
     path('fund/', include('transfer.urls')),
+    path('service/', include('service.urls')),
 ]
 
 if settings.DEBUG:

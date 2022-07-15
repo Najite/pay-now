@@ -5,7 +5,7 @@ app_name='wallet'
 
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),
-    path('account-creation', views.create_virtual_account, name='account'),
+    path('create-virtual-wallet', views.create_virtual_account, name='account'),
         
     
 ]
